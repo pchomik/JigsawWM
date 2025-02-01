@@ -408,3 +408,5 @@ class VirtDeskState:
             return
         ms: MonitorState = window.attrs[MONITOR_STATE]
         ms.move_to_workspace(window, workspace_index, is_delta)
+        if ms.workspace.tiling_windows:
+            ms.workspace.tiling_windows[0].activate()
