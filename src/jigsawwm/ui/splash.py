@@ -11,6 +11,7 @@ from PySide6.QtCore import (
     Qt,
     Signal,
     Slot,
+    QTimer,
 )
 from PySide6.QtGui import QImage, QCursor
 from PySide6.QtWidgets import QLabel, QSizePolicy, QWidget, QHBoxLayout, QVBoxLayout
@@ -169,6 +170,7 @@ class Splash(Dialog):
         y = rect.y() + (rect.height()) // 3
         self.setGeometry(x, y, w, h)
         self.show()
+        QTimer.singleShot(500, self.hide_windows_splash)
 
     @Slot()
     def hide_windows_splash(self):

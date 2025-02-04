@@ -2,6 +2,18 @@
 
 JigsawWM is a free and open-source project that aims to increase your productivity by offering a set of automation facilities, including the jmk module as an AHK alternative, a Tiling Window Manager to free you from managing windows manually and the Daemon to support any customization you may have in mind.
 
+# Changes to make
+
+- [ ] Remove `jmk` module
+- [ ] Implement API server based on flask
+- [ ] Create AHK method to call JigsawWM
+- [ ] Change existing hotkeys with AHK script
+- [ ] Clean up the codebase
+- [ ] Add `rust` formatter
+- [ ] Add `mypy` liner
+- [ ] Add `pre-commit` hook configuration
+
+
 # What Can I Do?
 
 ## Service: jmk

@@ -5,9 +5,18 @@ from datetime import datetime
 from jigsawwm.app.job import Service
 from jigsawwm.w32.sendinput import Vk, send_combination, send_text
 
-from .core import JmkCore
-from .hotkey import JmkHotkeys
-from .sysinout import SystemInput, SystemOutput
+
+class Sysout:
+    def __init__(self):
+        self.callbacks = set()
+        self.state = {}
+
+class Hotkeys:
+    def register_triggers(self, hotkeys):
+        pass
+
+    def unregister(self, hotkey):
+        pass
 
 
 class JmkService(Service):
@@ -16,26 +25,31 @@ class JmkService(Service):
     name = "jmk"
 
     def __init__(self):
-        self.sysin = SystemInput()
-        self.core = JmkCore()
-        self.hotkeys = JmkHotkeys()
-        self.sysout = SystemOutput()
-        self.sysin.pipe(self.core).pipe(self.hotkeys).pipe(self.sysout)
-        self.sysin.next_handler_when_disabled = self.sysout
-        self.sysin.start()
+        self.sysout = Sysout()
+        self.hotkeys = Hotkeys()
+        # self.sysin = SystemInput()
+        # self.core = JmkCore()
+        # self.hotkeys = JmkHotkeys()
+        # self.sysout = SystemOutput()
+        # self.sysin.pipe(self.core).pipe(self.hotkeys).pipe(self.sysout)
+        # self.sysin.next_handler_when_disabled = self.sysout
+        # self.sysin.start()
+        self._running = False
 
     def start(self):
-        self.sysin.is_running = True
+        # self.sysin.is_running = True
+        self._running = True
 
     def stop(self):
-        self.sysin.is_running = False
+        # self.sysin.is_running = False
+        self._running = False
 
     @property
     def is_running(self):
-        return self.sysin.is_running
+        return self._running
 
     def shutdown(self):
-        self.sysin.stop()
+        self.stop()
 
 
 def send_today():
