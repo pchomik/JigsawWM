@@ -1,7 +1,9 @@
 """Splash window for the list of windows and current workspace information."""
 
+from functools import partial
 import logging
 
+from uuid import uuid1
 from typing import List, Optional
 from ctypes import *  # pylint: disable=wildcard-import,unused-wildcard-import
 from ctypes.wintypes import *  # pylint: disable=wildcard-import,unused-wildcard-import
@@ -11,7 +13,7 @@ from PySide6.QtCore import (
     Qt,
     Signal,
     Slot,
-    QTimer,
+    QTimer
 )
 from PySide6.QtGui import QImage, QCursor
 from PySide6.QtWidgets import QLabel, QSizePolicy, QWidget, QHBoxLayout, QVBoxLayout
@@ -68,6 +70,7 @@ class Splash(Dialog):
         # self._register_shellhook()
         self._register_hooks()
         logger.info("WindowsSplash init")
+        self._active_uuid = None
 
     def _register_hooks(self):
         logger.info("register hooks")
@@ -170,13 +173,16 @@ class Splash(Dialog):
         y = rect.y() + (rect.height()) // 3
         self.setGeometry(x, y, w, h)
         self.show()
-        QTimer.singleShot(500, self.hide_windows_splash)
+        self._active_uuid = str(uuid1())
+        QTimer.singleShot(500, partial(self.hide_windows_splash, self._active_uuid))
 
     @Slot()
-    def hide_windows_splash(self):
+    def hide_windows_splash(self, uuid: str | None = None):
         """Hide the splash screen"""
         logger.info("WindowsSplash hide")
-        self.hide()
+        if uuid and uuid == self._active_uuid:
+            self.hide()
+            self._active_uuid = None
 
     def refresh_foreground_window(self):
         """Refresh the foreground window"""

@@ -5,13 +5,15 @@ JigsawWM is a free and open-source project that aims to increase your productivi
 # Changes to make
 
 - [ ] Remove `jmk` module
-- [ ] Implement API server based on flask
-- [ ] Create AHK method to call JigsawWM
-- [ ] Change existing hotkeys with AHK script
+- [x] ~Implement API server based on flask~
+- [x] ~Create AHK method to call JigsawWM~
+- [x] Change existing hotkeys with AHK script
 - [ ] Clean up the codebase
-- [ ] Add `rust` formatter
+- [ ] Add `ruff` formatter
 - [ ] Add `mypy` liner
 - [ ] Add `pre-commit` hook configuration
+- [x] Add `ahk` python library to control hotkeys
+- [x] Fix splash window to disappear after 0.5 second of inactivity
 
 
 # What Can I Do?
